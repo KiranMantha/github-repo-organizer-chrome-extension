@@ -1,70 +1,91 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --card-bg: var(--bgColor-default, #212830);
+  --text-color: var(--fgColor-default, var(--color-fg-default, #c9d1d9));
+  --border-color: var(--borderColor-default, #3d444d);
+  --button-bg-color: var(--button-default-bgColor-rest, var(--color-btn-bg, #2a313c));
+  --button-text-color: var(--button-default-fgColor-rest, var(--color-btn-text, #d1d7e0));
+  --button-hover-bg-color: var(--button-default-bgColor-hover, #2f3742);
+  --border-radius: var(--borderRadius-medium, 8px);
+  --border-width: var(--borderWidth-thin, 1px)
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  --base-size: var(--base-size-16, 16px);
+  --folder-icon-color: var(--fgColor-muted, var(--color-fg-muted, #9198a1));
+  --dialog-background-color: var(--overlay-bgColor, #2a313c);
+  --dialog-box-shadow: var(--shadow-floating-small, 0px 0px 0px 1px #3d444d, 0px 6px 12px -3px #1c212866, 0px 6px 18px 0px #1c212866);
+  --dialog-overlay-width: var(--overlay-width, 480px);
+  --button-primary-bg-color: var(--button-primary-bgColor-rest, #347d39);
+  --button-primary-border-color: var(--button-primary-borderColor-rest, #cdd9e51a);
+  --button-primary-text-color: var(--button-primary-fgColor-rest, #fff);
+  --hover-bg-color: var(--control-transparent-bgColor-hover, #656c7626);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-  &:hover {
-    color: #535bf2;
-  }
+* {
+  font-family: var(--font-family);
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  color: var(--text-color);
+  background-color: var(--bgColor-default, var(--color-canvas-default, #212830));
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.collections-container {
+  padding: 16px 0;
+
+  .collections-title {
+    font-weight: 400;
+
+    button {
+      float: right;
+    }
+  }
+  .collections {
+    display: grid;
+    grid-gap: var(--base-size-16, 16px);
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin: 16px 0;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.icon {
+  color: var(--folder-icon-color);
+}
+
+.f-right {
+  float: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.pointer {
   cursor: pointer;
-  transition: border-color 0.25s;
-
-  &:hover {
-    border-color: #646cff;
-  }
-
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes DialogAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }

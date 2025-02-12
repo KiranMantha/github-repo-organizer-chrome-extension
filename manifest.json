@@ -3,13 +3,12 @@
   "name": "GitHub Repo Organizer",
   "version": "1.0",
   "description": "Organize GitHub repositories using folders stored in a gist",
-  "permissions": ["storage", "identity"],
+  "permissions": ["activeTab", "scripting", "storage", "identity"],
   "host_permissions": ["https://api.github.com/*"],
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],
-      "js": ["src/content_script.ts"],
-      "css": ["src/styles.css"]
+      "js": ["dist/content.js"]
     }
   ]
 }

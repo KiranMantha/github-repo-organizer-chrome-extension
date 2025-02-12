@@ -1,36 +1,46 @@
 import { useState } from 'preact/hooks';
-import './app.scss';
-import preactLogo from './assets/preact.svg';
-import viteLogo from '/vite.svg';
+import { Collection } from './collection';
+import { Button, Card } from './ui';
 
 export function App() {
-  const [count, setCount] = useState(0);
+  const [collections, setCollections] = useState<Array<{ name: string; repos: string[] }>>([]);
+
+  const addCollection = () => {
+    const collection = prompt('Enter collection name:');
+    if (collection) setCollections([...collections, { name: collection, repos: [] }]);
+  };
+
+  const addRepoToCollection = (repoUrl: string, index: number) => {
+    collections[index].repos.push(repoUrl);
+    setCollections([...collections]);
+  };
 
   return (
-    <>
+    <section className="collections-container">
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
+        <h4 className="collections-title">
+          Collections
+          <Button onClick={addCollection}>Add Collection</Button>
+        </h4>
       </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/app.tsx</code> and save to test HMR
-        </p>
+      <div className="collections">
+        {collections.map((item, i) => {
+          return (
+            <Collection
+              data={item}
+              key={`${item.name}_${i}`}
+              onAddRepo={(repoUrl: string) => {
+                addRepoToCollection(repoUrl, i);
+              }}
+            />
+          );
+        })}
       </div>
-      <p>
-        Check out{' '}
-        <a href="https://preactjs.com/guide/v10/getting-started#create-a-vite-powered-preact-app" target="_blank">
-          create-preact
-        </a>
-        , the official Preact + Vite starter
-      </p>
-      <p class="read-the-docs">Click on the Vite and Preact logos to learn more</p>
-    </>
+      {!collections.length && (
+        <Card>
+          <i>Add some collections</i>
+        </Card>
+      )}
+    </section>
   );
 }
