@@ -20,9 +20,16 @@ export const Collection = ({
     if (repoUrl) onAddRepo(repoUrl);
   };
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      showCollection();
+    }
+  };
+
   return (
     <div>
-      <Card className="pointer flex-item" onClick={showCollection}>
+      <Card className="pointer flex-item" tabindex={0} role="button" onClick={showCollection} onKeyDown={handleKeyDown}>
         <StyledCollection>
           <svg
             className="icon"
